@@ -1,3 +1,12 @@
+MODO_DEBUG = False
+
+import streamlit as st
+
+if not MODO_DEBUG:
+    st.stop()
+st.title("Página de Reviews 📊")
+st.write("Aqui estão os reviews...")
+
 import streamlit as st
 import pandas as pd
 
@@ -15,7 +24,6 @@ genero_livro = df_livro["genre"].iloc[0]
 preco_livro = df_livro["book price"].iloc[0]
 nota_livro = df_livro["rating"].iloc[0]
 ano_livro = df_livro["year of publication"].iloc[0]
-#iloc retorna apenas o dado que voce quer, o "titulo" do liro
 
 st.title(titulo_livro)
 st.subheader(genero_livro)
