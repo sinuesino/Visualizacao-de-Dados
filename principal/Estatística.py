@@ -56,6 +56,9 @@ with tab1:
             st.warning("Selecione duas colunas para gerar o gráfico.")
     else:
         st.info("Por favor, envie um arquivo para visualizar.")
+'''
+
+DESENVOLVENDO A PARTE DE IA
 
 with tab2:
     st.header("Faça perguntas sobre seu arquivo com IA")
@@ -96,3 +99,4 @@ with tab2:
                     st.info("Dica: Verifique se você tem os pacotes transformers e torch instalados")
     else:
         st.info("Envie um arquivo para poder perguntar.")
+'''
