@@ -1,11 +1,7 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-from dotenv import load_dotenv
-from langchain_community.llms import HuggingFaceHub
-from langchain_experimental.agents import create_csv_agent
 import os
-from transformers import pipeline
 
 st.set_page_config(page_title="Exploração e Perguntas com IA", layout="wide")
 
