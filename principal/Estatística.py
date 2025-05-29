@@ -1,18 +1,10 @@
 import streamlit as st
 import pandas as pd
 import plotly.express as px
-import os
 
-st.set_page_config(page_title="Exploração e Perguntas com IA", layout="wide")
+st.set_page_config(page_title="Exploração de Dados", layout="wide")
 
-load_dotenv()
-
-if "HUGGINGFACE_API_KEY" not in os.environ:
-    st.warning("Token da HuggingFace não encontrado no ambiente. Verifique seu arquivo .env")
-
-pipe = pipeline("question-answering", model="deepset/roberta-base-squad2")
-
-tab1, tab2 = st.tabs(["📊 Visualização de Dados", "🤖 Pergunte com IA"])
+tab1 = st.tabs(["📊 Visualização de Dados"])[0]
 
 with tab1:
     st.header("Visualização de Dados")
@@ -52,47 +44,3 @@ with tab1:
             st.warning("Selecione duas colunas para gerar o gráfico.")
     else:
         st.info("Por favor, envie um arquivo para visualizar.")
-'''
-
-DESENVOLVENDO A PARTE DE IA
-
-with tab2:
-    st.header("Faça perguntas sobre seu arquivo com IA")
-
-    user_csv = st.file_uploader("Envie um arquivo CSV ou XLSX para análise por IA", type=["csv", "xlsx"], key="qa")
-
-    if user_csv is not None:
-        user_question = st.text_input("O que você quer saber sobre os dados?")
-
-        if user_question:
-            with st.spinner("Analisando..."):
-                try:
-                    # Carrega os dados
-                    if user_csv.name.endswith('.csv'):
-                        df = pd.read_csv(user_csv)
-                    else:
-                        df = pd.read_excel(user_csv)
-                    
-                    # Configura o LLM CORRETAMENTE
-                    from transformers import T5ForConditionalGeneration, T5Tokenizer
-                    
-                    tokenizer = T5Tokenizer.from_pretrained("google/flan-t5-base")
-                    model = T5ForConditionalGeneration.from_pretrained("google/flan-t5-base")
-                    
-                    # Pré-processa a pergunta
-                    input_text = f"question: {user_question} context: {df.to_string()}"
-                    input_ids = tokenizer.encode(input_text, return_tensors="pt")
-                    
-                    # Gera a resposta
-                    outputs = model.generate(input_ids)
-                    resposta = tokenizer.decode(outputs[0], skip_special_tokens=True)
-                    
-                    st.success("Resposta:")
-                    st.write(resposta)
-                    
-                except Exception as e:
-                    st.error(f"Erro: {str(e)}")
-                    st.info("Dica: Verifique se você tem os pacotes transformers e torch instalados")
-    else:
-        st.info("Envie um arquivo para poder perguntar.")
-'''
